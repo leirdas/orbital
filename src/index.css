@@ -7,6 +7,17 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.App > nav {
+  box-shadow: 0px 0px 5px;
+  background-color: aliceblue;
+  box-sizing: border-box;
+}
+
+.App > .auth-inner {
+  padding-top: 100px;
+}
+
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

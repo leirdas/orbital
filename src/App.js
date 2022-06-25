@@ -1,30 +1,60 @@
-import React from 'react'
-import { useState, useEffect } from "react";
+import {useState, React} from 'react'
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
+import './App.css'
+import { BrowserRouter as Router, Routes, Route, Link, withRouter } from 'react-router-dom'
+import Login from './components/login.component'
+import SignUp from './components/signup.component'
+import Profile from './components/Profile/Profile';
+import Missions from './components/Missions/Missions';
+import Route1 from './components/Routes/1';
+import Box from '@mui/material/Box';
+import MenuItem from '@mui/material/MenuItem';
+import Home from './components/home';
+import { useAuth } from "./hooks/useAuth";
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 
-import PageHome from "./pages/PageHome";
-import PageLogin from "./pages/PageLogin";
-import { useAuth } from "./hooks/useAuth";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import PrivateRoute from './PrivateRoute';
-import Missions from './components/Missions/Missions';
 
-import "./styles.css";
-
-export default function App() {
-  const { user } = useAuth();
+function App() {
+  const { user, signout } = useAuth();
+  
   return (
-    <div className="App">
-      <AppShell />
-      {user ? <PageHome /> : <PageLogin />}
-    </div>
-  );
+    <Router>
+      <div className="App">
+        <AppShell/>
+        
+        <div className="auth-wrapper">
+          <div className="auth-inner">
+          <Box sx={{pt: 7.5}}>
+            
+              <Routes>
+                <Route exact path="/" element={<Home/>}  />
+              </Routes>
+              {!user &&
+                <Routes>
+                
+                  <Route exact path="/sign-in" element={<Login />} />
+                  <Route exact path="/sign-up" element={<SignUp />} />
+                </Routes>
+              }
+              {user &&
+                <Routes>
+                  <Route exact path="/profile" element={<Profile/>} />
+                  <Route exact path="/missions" element={<Missions/>}/>
+                  <Route exact path="/1" element={<Route1/>}/>
+                </Routes>
+              }
+            </Box>
+          </div>
+        </div>
+      </div> 
+    </Router>
+    
+  )
 }
 
 function AppShell() {
@@ -45,21 +75,14 @@ function AppShell() {
   };
 
   return (
-    <BrowserRouter>
-    {/* <Switch> */}
-    <Routes>
-      <Route path="/login" element={<PageLogin />}></Route>
-      <PrivateRoute path="/missions" component={Missions}></PrivateRoute>
-    </Routes>
-    {/* </Switch> */}
     <AppBar position="static">
       <Toolbar>
         <Typography
-          variant="h6"
+          variant="h5"
           component="div"
           style={{ flexGrow: 1, textAlign: "left" }}
         >
-          STAR
+          <Link to="/" style={{ textDecoration: 'none' }}>STAR</Link>
         </Typography>
         {user && (
           <div>
@@ -88,14 +111,15 @@ function AppShell() {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              <MenuItem onClick={handleClose}>Profile</MenuItem>
-              <MenuItem onClick={handleClose}>My account</MenuItem>
-              <MenuItem onClick={handleLogout}>Log out</MenuItem>
+              <MenuItem><Link to="/profile" style={{ textDecoration: 'none' }}>Profile</Link></MenuItem>
+              <MenuItem onClick={handleLogout}><Link to="/" style={{ textDecoration: 'none' }}>Log out</Link></MenuItem>
             </Menu>
           </div>
         )}
       </Toolbar>
     </AppBar>
-    </BrowserRouter>
+
   );
 }
+
+export default App

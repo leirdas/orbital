@@ -1,9 +1,8 @@
 export const firebaseConfig = {
-    apiKey: "AIzaSyA9pLk-YzPG9B9qlB5GAx-DX8pyT8u8Fm0",
-    authDomain: "orbital-star.firebaseapp.com",
-    projectId: "orbital-star",
-    storageBucket: "orbital-star.appspot.com",
-    messagingSenderId: "495276048686",
-    appId: "1:495276048686:web:059d57836f3fcedd04babf"
+    apiKey: "AIzaSyDcOaAuTvRt-45t9tBVtAmdQv_XWNxkJX8",
+    authDomain: "orbital-b3d35.firebaseapp.com",
+    projectId: "orbital-b3d35",
+    storageBucket: "orbital-b3d35.appspot.com",
+    messagingSenderId: "932956507278",
+    appId: "1:932956507278:web:a363a76a618f946b78cddf",
   };
-
